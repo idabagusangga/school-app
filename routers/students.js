@@ -61,8 +61,25 @@ router.post('/edit/:id', (req, res) => {
       email: email
     }, { where: { id: req.params.id } })
     .then(function (data) {
-      res.redirect('../../students');
+      res.redirect('/students');
     });
   });
+
+router.get('/addsubject/:id',(req,res)=>{
+    model.Student.findAll({where:{id:req.params.id}}).then(studentData =>{
+        model.Subject.findAll().then(subjectData =>{
+            res.render('addSubject',{dataStudents:studentData,dataSubject:subjectData})
+        })
+    })
+})
+
+router.post('/addsubjects/:id',(req,res)=>{
+    model.student_subject.update({
+        SubjectId:req.body.SubjectId,
+        StudentId:req.params.id
+    }).then(function(){
+        res.redirect('/students')
+    })
+})
 
 module.exports = router;
