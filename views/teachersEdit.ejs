@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<form action="/teachers/edit/<%=dataTeacher.id%>" method="post">
+  First name:<br>
+  <input type="text" name="first_name" value="<%=dataTeacher.first_name%>">
+  <br>
+  Last name:<br>
+  <input type="text" name="last_name" value="<%=dataTeacher.last_name%>">
+  <br>
+  Email:<br>
+  <input type="text" name="email" value="<%=dataTeacher.email%>">
+  <br>
+  <select name='Subjects'>
+    <%dataSubject.forEach(function(subject){%>
+    <option value="<%=subject.id%>">
+        <%=subject.subject_name%>
+    </option>
+    <%})%>
+</select>
+  <br>
+  <input type="submit" value="Edit">
+</form> 
+
+
+
+</body>
+</html>
