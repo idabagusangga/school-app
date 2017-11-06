@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<form action="/students/add" method="post">
+  First name:<br>
+  <input type="text" name="first_name" value="Mickey">
+  <br>
+  Last name:<br>
+  <input type="text" name="last_name" value="Mouse">
+  <br>
+  Email:<br>
+  <input type="text" name="email" value="MickeyMouse@disney.com">
+  <br>
+  <br>
+  <input type="submit" value="Submit">
+</form> 
+<%if(hasOwnProperty('error')){%>
+    <h1>Masukan E-mail dengan format yang benar Berformat yang benar, [user]@[domainname].[domain]
+</h1>
+  <%}%>
+
+
+
+</body>
+</html>
