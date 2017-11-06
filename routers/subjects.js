@@ -11,7 +11,7 @@ const model = require('../models')
 
 router.get('/',(req,res)=>{
     
-    model.Subject.findAll().then((dataSubjects) =>{
+    model.Subject.findAll({include:[model.Teacher]}).then((dataSubjects) =>{
         res.render('subjects',{dataSubjects:dataSubjects})
     })
 });

@@ -9,50 +9,89 @@ const router = express.Router()
 const model = require('../models')
 // console.log("----------",model)
 
-router.get('/',(req,res)=>{
-    
-    model.Teacher.findAll().then((dataTeacher) =>{
-        res.render('teachers',{dataTeachers:dataTeacher})
+router.get('/', (req, res) => {
+
+    model.Teacher.findAll().then((dataTeacher) => {
+        res.render('teachers', {
+            dataTeachers: dataTeacher
+        })
     })
 });
-router.get('/add',(req,res) =>{
+router.get('/add', (req, res) => {
     res.render('teachersAdd')
 })
-router.post('/add',(req,res)=>{
+router.post('/add', (req, res) => {
     // console.log(req.body)
     let first_name = req.body.first_name;
     let last_name = req.body.last_name;
     let email = req.body.email;
     model.Teacher.create({
-        first_name:first_name,
-        last_name:last_name,
-        email:email
-    })
-    .then(function(newTeacher){
-        // console.log(newStudent)
-        res.redirect('/teachers');
-    }).catch((err)=>{
-        // res.send(err.errors[0].message)
-        res.render('teachersAdd',{error:err});
-    });
-});
-router.get('/delete/:id',(req,res)=>{
-    model.Teacher.destroy({
-        where:{
-            id:req.params.id
-        }
-    })
-    .then(function(){
-        res.redirect('/teachers');
-    });
-});
-router.get('/edit/:id',(req,res)=>{
-    model.Teacher.findById(req.params.id).then(teacher=>{
-        model.Subject.findAll().then(function(subject){
-            res.render('teachersEdit',{dataTeacher:teacher,dataSubject:subject})
+            first_name: first_name,
+            last_name: last_name,
+            email: email
         })
-        
+        .then(function (newTeacher) {
+            // console.log(newStudent)
+            res.redirect('/teachers');
+        }).catch((err) => {
+            // res.send(err.errors[0].message)
+            res.render('teachersAdd', {
+                error: err
+            });
+        });
+});
+router.get('/delete/:id', (req, res) => {
+    model.Teacher.destroy({
+            where: {
+                id: req.params.id
+            }
+        })
+        .then(function () {
+            res.redirect('/teachers');
+        });
+});
+router.get('/edit/:id', (req, res) => {
+    model.Teacher.findById(req.params.id).then(teacher => {
+        model.Subject.findAll().then(function (subject) {
+            res.render('teachersEdit', {
+                dataTeacher: teacher,
+                dataSubject: subject
+            })
+        })
+
     })
 })
+
+
+router.post('/edit/:id', (req, res) => {
+    let first_name = req.body.first_name;
+    let last_name = req.body.last_name;
+    let email = req.body.email;
+    model.Teacher.update({
+            first_name: first_name,
+            last_name: last_name,
+            email: email,
+            SubjectId: req.body.SubjectId
+        }, {
+            where: {
+                id: req.params.id
+            }
+        })
+        .then(function (data) {
+            res.redirect('/teachers');
+        });
+});
+
+
+router.get('/delete/:id', (req, res) => {
+    model.Teacher.destroy({
+            where: {
+                id: req.params.id
+            }
+        })
+        .then(function () {
+            res.redirect('/teachers');
+        });
+});
 
 module.exports = router;

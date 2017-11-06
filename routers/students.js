@@ -51,5 +51,18 @@ router.get('/edit/:id',(req,res)=>{
         res.render('studentsEdit',{dataStudent:student})
     })
 })
+router.post('/edit/:id', (req, res) => {
+    let first_name = req.body.first_name;
+    let last_name = req.body.last_name;
+    let email = req.body.email;
+    model.Student.update({
+      first_name: first_name,
+      last_name: last_name,
+      email: email
+    }, { where: { id: req.params.id } })
+    .then(function (data) {
+      res.redirect('../../students');
+    });
+  });
 
 module.exports = router;
