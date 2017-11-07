@@ -2,16 +2,13 @@
 <html>
 <body>
 
-<form action="/students/addsubjects/<%=dataStudents.id%>" method="post">
-  First name:<br>
-  <input type="text" name="first_name" value="<%=dataStudents.first_name%>">
-  <br>
-  Last name:<br>
-  <input type="text" name="last_name" value="<%=dataStudents.last_name%>">
-  <br>
-  Email:<br>
-  <input type="text" name="email" value="<%=dataStudents.email%>">
-  <br>
+<%dataStudents.forEach(function(students){%>
+    FirstName <%=students.first_name%>
+    LastName <%=students.last_name%>
+    email <%=students.email%>
+<%})%>
+
+<form action="/students/edit/<%=dataStudents.id%>" method="post">
   <select name='SubjectId'>
     <%dataSubject.forEach(function(subject){%>
     <option value="<%=subject.id%>">
@@ -20,7 +17,7 @@
     <%})%>
 </select>
   <br>
-  <input type="submit" value="add">
+  <input type="submit" value="Edit">
 </form> 
 
 

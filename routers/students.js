@@ -74,7 +74,7 @@ router.get('/addsubject/:id',(req,res)=>{
 })
 
 router.post('/addsubjects/:id',(req,res)=>{
-    model.student_subject.update({
+    model.student_subject.create({
         SubjectId:req.body.SubjectId,
         StudentId:req.params.id
     }).then(function(){
